@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Tube } from './Tube';
+import { Tube } from './components/Tube';
 
 export default function App() {
   const [tubes, setTubes] = useState<string[][]>([
@@ -17,9 +17,40 @@ export default function App() {
       if (tubes[index].length > 0) {
         setSelectedTube(index);
       }
-    } else {
-      setSelectedTube(null);
+      return;
     }
+
+    if (selectedTube === index) {
+      setSelectedTube(null);
+      return;
+    }
+
+    const sourceTube = [...tubes[selectedTube]];
+    const targetTube = [...tubes[index]];
+
+    if (targetTube.length >= 4) {
+      alert('Cheio');
+      setSelectedTube(null);
+      return;
+    }
+
+    const liquid = sourceTube[sourceTube.length - 1];
+
+    if (targetTube.length > 0 && targetTube[targetTube.length - 1] !== liquid) {
+      alert('Diferente');
+      setSelectedTube(null);
+      return;
+    }
+
+    sourceTube.pop();
+    targetTube.push(liquid);
+
+    const newTubes = [...tubes];
+    newTubes[selectedTube] = sourceTube;
+    newTubes[index] = targetTube;
+
+    setTubes(newTubes);
+    setSelectedTube(null);
   };
 
   return (
