@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Tube } from './components/Tube';
+import { Tube } from './Tube';
 
 export default function App() {
   const [tubes, setTubes] = useState<string[][]>([
