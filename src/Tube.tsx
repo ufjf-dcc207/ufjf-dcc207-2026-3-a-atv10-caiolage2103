@@ -1,10 +1,13 @@
 interface TubeProps {
   colors: string[];
+  isSelected: boolean;
+  onClick: () => void;
 }
 
-export function Tube({ colors }: TubeProps) {
+export function Tube({ colors, isSelected, onClick }: TubeProps) {
   return (
     <div
+      onClick={onClick}
       style={{
         width: '50px',
         height: '200px',
@@ -15,7 +18,9 @@ export function Tube({ colors }: TubeProps) {
         alignItems: 'center',
         padding: '2px',
         gap: '2px',
-        backgroundColor: 'white'
+        cursor: 'pointer',
+        backgroundColor: 'white',
+        outline: isSelected ? '3px dashed black' : 'none'
       }}
     >
       {colors.map((color, index) => (
